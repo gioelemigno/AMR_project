@@ -1,0 +1,51 @@
+% This paper can be formatted using the % (instead of conference) mode.
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%\documentclass[conference]{IEEEims} % Modified for MTT-IMS
+%\documentclass[conference]{IMSTemplate}
+\documentclass[conference]{IEEEtran}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+%+++++++++++++++++++++++++++++++++++++++++++
+% Added to commands
+\input epsf
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{prop}{Proposition}
+\newtheorem{theorem}{Theorem}
+%+++++++++++++++++++++++++++++++++++++++++++
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor IEEEtran}
+\begin{document}
+    
+    \title{\LARGE Title}
+    \author{Filippo Ficarola, Gioele Migno, Leonardo Pio Lo Porto}
+    % make the title area
+    \maketitle
+    
+    \input{1_abstract}
+    
+    \section{Introduction}
+        \input{2_introduction}
+    
+    \section{Theoretical Fundamentals}
+        \input{3_theoretical_fundamentals}
+        
+    \section{Problem Formulation}
+        \input{4_problem_formulation}
+    
+    \section{Case of Study}
+        \input{5_case_of_study}
+
+    \section{Simulation}
+        \input{6_simulation}
+        
+    \section{Conclusion}
+        \input{7_conclusion}
+        
+    \input{bibliography}
+\end{document}

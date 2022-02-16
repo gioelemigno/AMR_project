@@ -1,0 +1,53 @@
+\subsection{Level Set Method}
+As mentioned before, in order to compute the BRS is necessary to solve a game of kind where the outcome is boolean: the system state either reaches the target set or not. Level Set Method can be used to translate this game into a game of degree, where players share an objective function to optimize. The basic idea of this approach is to encode the boolean outcome through a quantitative function and compare its value at the end of the game to a threshold value, usually zero, to determine whether or not the system reached the target set.
+The first step is to define a Lipschitz function $g(x)$, where $x$ represents the system state, such that the target set $R$ corresponds to the zero sublevel set of $g(x)$, that is, $x\in R \Leftrightarrow g(x) \leq 0$. We indicated the target set with $R$ (reach) since from now on we suppose that the set contains goal states, namely states to reach. Now we can define the cost function of the game $J(\cdot)$, we are not interested in any kind of running cost, therefore we consider only the value of $g(x)$ at the end of a game in which $t \in [\tau_i, \tau_f]$:
+
+\begin{equation}
+\label{eq:j_level_set}
+    J(x, t, u(\cdot), d(\cdot)) = g(x(\tau_f))
+\end{equation}
+					
+The lower value of the game is given by the following value function $V(x,t)$ in which the control $u$ tries to minimize and the disturbance $d$ to maximize the cost $J(\cdot)$.
+We assume that the player that wants to reach the target set $R$, namely the control input $u$ (Player 1), is restricted to use a non-anticipative strategies $\gamma[d](t)$ and we indicates the class of strategies admissible in a time interval $[\tau_i, \tau_f]$ as $\Gamma_{[\tau_i, \tau_f]}$.
+
+\begin{equation}
+\begin{split}
+    V(x, t) 
+    & = \inf_{\gamma(\cdot) \in \Gamma(\cdot) } \sup_{d(\cdot)} J(x, t, \gamma(\cdot), d(\cdot))    \\
+    & = \inf_{\gamma(\cdot) \in \Gamma(\cdot) } \sup_{d(\cdot)} g(x(\tau_f))
+\end{split}
+\end{equation}
+
+In practical scenarios, along the trajectory of a dynamical system there may be both goals to reach and obstacles to avoid. The goals to reach can be represented by the target set $R$ as previously done, the set of states to avoid instead, can be defined with another set $A$ (avoid) that contains all the system state $x$ that corresponds to an object collision, this new kind of set can be defined using a function $h(x)$ similar to $g(x)$. Formally: consider the sets $R$, $A$ related respectively to the level sets of two Lipschitz continuous and bounded functions $g: \mathbb{R}^n \rightarrow \mathbb{R}$, $h: \mathbb{R}^n \rightarrow \mathbb{R}$, then the two sets can be characterized as:
+
+\begin{equation} 
+\label{R_A}
+R = \left\{ x \in \mathbb{R}^n | g(x) \leq 0 \right\} \, \textrm{and} \, A = \left\{x \in \mathbb{R}^n | h(x) > 0 \right\}
+\end{equation}
+
+The most common choice for the function $g(x)$ and $h(x)$ is to use the distance between the state $x$ and the set of interested, namely:
+
+\begin{equation}
+\label{g}
+    g(x) =
+\left\{
+	\begin{array}{ll}
+		-d(x, R^c)  & \mbox{if } x \in R \\
+		d(x, R) & \mbox{if } x \in R^c
+	\end{array}
+\right.
+\end{equation}
+
+\begin{equation}
+\label{h}
+    h(x) =
+\left\{
+	\begin{array}{ll}
+		d(x, A^c)  & \mbox{if } x \in A \\
+		-d(x, A) & \mbox{if } x \in A^c
+	\end{array}
+\right.
+\end{equation}
+
+Since $g(x)$, $h(x)$ must be bounded, we will see later why, we can introduce two constants $C_g$ $C_h$ to impose a saturation to the distance functions, or alternatively, we can use the arctangent of the signed distance, in this way the resulting functions are bounded and also globally Lipschtz \cite{reach_avoid_no_dist}. 
+In the next section we will see how the value function $V(\cdot)$ is formulated when we have both a reach $R$ and an avoid $A$ set, and most importantly how it can be solved in order to calculate the BRS. In the following sections we will refer to the BRS as a reach-avoid set (RAS) to highlight the fact that there is both a set to reach and one to avoid.
