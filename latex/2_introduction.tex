@@ -1,1 +1,7 @@
-intro
+% //Explain the problem and why is necessary a formal method			     	
+During system design, a crucial step is to determine if the system works according to the desired specifications such as performance and safety. This verification step is challenging for many reasons, the first one is the need to take into account all possible system behaviors, this makes necessary the use of a formal verification method since most simulation-based approaches are insufficient. The other main ones are the presence of unpredictable disturbance in practical systems, and the complexity of system dynamics that in general is nonlinear, evolves in continuous time and has high dimensional state space.
+
+% briefly what HJ method is 									
+Hamilton-Jacobi Reachability Analysis (HJ-RA) is a verification method for guaranteeing performance and safety properties of systems based on reachability analysis, which computes the set of states from which the system can be driven to a target set, while satisfying time-varying state constraints at all times. HJRA overcomes some of the above challenges, it is applicable to general nonlinear systems and easily handles control and disturbance variables. 
+
+%% // Explain structure of this report	
