@@ -12,6 +12,10 @@ In problems in which our target set is a reach set, we assume that the Player 1 
 
 %(rewrite the formula in this way: alpha : D→U | d1(r) = d2(r) for almost every r belonging to [t,s], then α[d1](r) =α[d2](r) for almost every r belongs to [t,s])
 
+\begin{equation}
+	\gamma \in \Gamma \triangleq \left\{ \alpha : \mathcal{D} \rightarrow \mathcal{U} | d_1(r) \implies \right\}  
+\end{equation}
+
 What the formula says is that, a map $\alpha : D \rightarrow U$ is a nonanticipative strategy if  for any $s \geq 0$, for any $d_1(\cdot)$ and $d_2(\cdot)$ belonging to $D$ such that $d_1(\cdot)$ and $d_2(\cdot)$ coincide almost everywhere on $[t,s]$, the image $\alpha(d_1(\cdot))$ and $\alpha(d_2(\cdot))$ coincide almost everywhere on $[t,s]$
 
 This restriction means that if player 1 cannot distinguish between input signals $ \alpha (d_1( \cdot )) $ and $ \alpha (d_2( \cdot ) )$ of player 2 until after time $s$, then player 1 cannot respond differently $( \alpha [d_1](r) = \alpha [ d_2 ](r))$ to those signals until after time $s$. Or in other words, player 1 cannot respond differently to two different player 2 disturbances until they become different.
@@ -21,6 +25,7 @@ In the context of reachability analysis our aim is to reach the goal by finding 
 It is possible to formalize what has been said above in this way: let $J_t(x,a(-),b(-))$ denote the cost accumulated during horizon $[i ,f ]$ (in Backward Reachable Set the set interval is $[t,0]$), when Player 1 and Player 2 play control $u(-)$ and $d(-)$ respectively. $J_t(-)$ can be expressed as:
 
 %(CAMBIARE FORMULA CON NOTAZIONI CORRETTE) 
+
 
 In the zero-sum setting, given this cost function, for the discussion held above, the aim of the game is, for Player 1, to minimize this function, while for Player 2 the aim is to maximize it.
 The solution of this problem is a binary solution, this means that given our problem formulation we can say if we avoid or not the set considered; or in other words the outcome of the game says if our control input (the evader) wins or not. This kind of differential game problem is also called game of kind. This problem is formulated in this way in order to compute correctly our BRS. Infact, the computation of the Backward Reachable Set is based on the solution of a game of kind. However, our aim is to find what are the control inputs such that we can reach the set; or in other words, considering the pursuit-evasion game, we don't want to know if the evader (our control input) wins or loses but we want to understand which are the control inputs such that we can win the pursuit-evasion game. So we want to pass from a game of kind in which the outcome is a binary value {Win = 1, Loss = 0} for Player 1 to a game of degree in which the outcome is a value in the real space for Player 1 that can give us information about the final result of the game. A solution to do this transformation is the level set method that will be discussed in section 2.5.  
