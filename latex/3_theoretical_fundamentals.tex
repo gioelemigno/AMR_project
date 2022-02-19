@@ -13,13 +13,20 @@ In problems in which our target set is a reach set, we assume that the Player 1 
 %(rewrite the formula in this way: alpha : D→U | d1(r) = d2(r) for almost every r belonging to [t,s], then α[d1](r) =α[d2](r) for almost every r belongs to [t,s])
 
 \begin{equation}
+	\label{eq:non_ant_stra}
 	\begin{split}
-	\gamma \in \Gamma \triangleq \left\{ \alpha : \mathcal{D(t)} \rightarrow \mathcal{U(t)} | d_1(r) = d_2(r) \\ 
-	& for almost every r \in [t,s] \\
-	& \implies \alpha[d_1](r)= \alpha[d_2](r) \\
-	& for almost every r \in [t,s] \right\}  
+		\gamma \in \Gamma \triangleq 
+		& \left\{ 
+			\alpha : \mathcal{D}(t) \rightarrow \mathcal{U}(t) | d_1(r) = d_2(r) 
+		\right. \\ 
+		& \textrm{for almost every} \;r \in [t,s] \\
+		& \implies \alpha[d_1](r)= \alpha[d_2](r) \\
+		& \left. 
+			\textrm{for almost every} \; r \in [t,s] 
+		\right\}  
 	\end{split}
 \end{equation}
+
 
 What the formula says is that, a map $\alpha : \mathcal{D(t)} \rightarrow \mathcal{U(t)}$ is a nonanticipative strategy if  for any $s \geq 0$, for any $d_1(\cdot)$ and $d_2(\cdot)$ belonging to $\mathcal{D}$ such that $d_1(\cdot)$ and $d_2(\cdot)$ coincide almost everywhere on $[t,s]$, the image $\alpha(d_1(\cdot))$ and $\alpha(d_2(\cdot))$ coincide almost everywhere on $[t,s]$
 
@@ -49,7 +56,8 @@ Viscosity solution is a concept introduced by M.Crandall and P. Lions in 1983; i
 \end{equation}
 
 under the viscosity solution concept, a certain variable $u$ does not need to be everywhere differentiable. There may be points where $Du$ does not exist and yet $u$ satisfies the equation in an appropriate generalized sense.
-Taking the main concepts of viscosity solutions from M. Crandall, L.C Evans and P.L Lions, let $u$ be a function from O into \mathbb{R}  and let $y_0$ belong to $\mathcal{O}$.  The superdifferential and subdifferential of u at $y_0$, denoted, respectively, by $D^+u(y_0)$ and $D^-u(y_0)$ are the set of points for which, respectively, the following two inequalities hold:
+
+Taking the main concepts of viscosity solutions from M. Crandall, L.C Evans and P.L Lions, let $u$ be a function from O into $\mathbb{R}$  and let $y_0$ belong to $\mathcal{O}$.  The superdifferential and subdifferential of $u$ at $y_0$, denoted, respectively, by $D^{+} u(y_0)$ and $D^{-} u(y_0)$ are the set of points for which, respectively, the following two inequalities hold:
 
 \begin{equation}
 	\limsup_{y \to y_0} (u(y)-u(y_0)-p_0 \cdot (y-y_0)) |y-y_0|^{-1} \leq 0
