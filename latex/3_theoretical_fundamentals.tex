@@ -13,50 +13,64 @@ In problems in which our target set is a reach set, we assume that the Player 1 
 %(rewrite the formula in this way: alpha : D→U | d1(r) = d2(r) for almost every r belonging to [t,s], then α[d1](r) =α[d2](r) for almost every r belongs to [t,s])
 
 \begin{equation}
-	\gamma \in \Gamma \triangleq \left\{ \alpha : \mathcal{D} \rightarrow \mathcal{U} | d_1(r) \implies \right\}  
+	\begin{split}
+	\gamma \in \Gamma \triangleq \left\{ \alpha : \mathcal{D(t)} \rightarrow \mathcal{U(t)} | d_1(r) = d_2(r) \\ 
+	& for almost every r \in [t,s] \\
+	& \implies \alpha[d_1](r)= \alpha[d_2](r) \\
+	& for almost every r \in [t,s] \right\}  
+	\end{split}
 \end{equation}
 
-What the formula says is that, a map $\alpha : D \rightarrow U$ is a nonanticipative strategy if  for any $s \geq 0$, for any $d_1(\cdot)$ and $d_2(\cdot)$ belonging to $D$ such that $d_1(\cdot)$ and $d_2(\cdot)$ coincide almost everywhere on $[t,s]$, the image $\alpha(d_1(\cdot))$ and $\alpha(d_2(\cdot))$ coincide almost everywhere on $[t,s]$
+What the formula says is that, a map $\alpha : \mathcal{D(t)} \rightarrow \mathcal{U(t)}$ is a nonanticipative strategy if  for any $s \geq 0$, for any $d_1(\cdot)$ and $d_2(\cdot)$ belonging to $\mathcal{D}$ such that $d_1(\cdot)$ and $d_2(\cdot)$ coincide almost everywhere on $[t,s]$, the image $\alpha(d_1(\cdot))$ and $\alpha(d_2(\cdot))$ coincide almost everywhere on $[t,s]$
 
 This restriction means that if player 1 cannot distinguish between input signals $ \alpha (d_1( \cdot )) $ and $ \alpha (d_2( \cdot ) )$ of player 2 until after time $s$, then player 1 cannot respond differently $( \alpha [d_1](r) = \alpha [ d_2 ](r))$ to those signals until after time $s$. Or in other words, player 1 cannot respond differently to two different player 2 disturbances until they become different.
 
 The aim for this problem is based on a two-person-zero-sum differential game. Zero-sum game is a mathematical representation in game theory of a situation which involves two sides, where the result is an advantage for one side and a loss for the other. If the total gains of the participants are added up, and the total losses are subtracted, they will sum to zero.
 In the context of reachability analysis our aim is to reach the goal by finding the control input (Player 1) that minimizes the distance from the reach set while the disturbance  (Player 2) at the same time tries to maximize its action to steer the trajectory away from the set. We can translate this as an optimization problem in which we want to optimize a cost function (that depends on the state, control input and disturbance) of the final state and a running cost that can be seen as a reward accumulated over system trajectories. 
-It is possible to formalize what has been said above in this way: let $J_t(x,a(-),b(-))$ denote the cost accumulated during horizon $[i ,f ]$ (in Backward Reachable Set the set interval is $[t,0]$), when Player 1 and Player 2 play control $u(-)$ and $d(-)$ respectively. $J_t(-)$ can be expressed as:
+It is possible to formalize what has been said above in this way: let $J_t(x,d(\cdot ),u(\cdot))$ denote the cost accumulated during horizon $[\tau_i ,tau_f ]$ (in Backward Reachable Set the set interval is $[t,0]$), when Player 1 and Player 2 play control $u(\cdot)$ and $d(\cdot)$ respectively. $J_t(\cdot)$ can be expressed as:
 
 %(CAMBIARE FORMULA CON NOTAZIONI CORRETTE) 
-
+\begin{equation}
+	J_t(x, d(\cdot),u(\cdot))  = \int_{\tau_i}^{\tau_f} c(x(s),d(s),u(s),s)  \,ds + q(x(0)) 
+\end{equation}
 
 In the zero-sum setting, given this cost function, for the discussion held above, the aim of the game is, for Player 1, to minimize this function, while for Player 2 the aim is to maximize it.
 The solution of this problem is a binary solution, this means that given our problem formulation we can say if we avoid or not the set considered; or in other words the outcome of the game says if our control input (the evader) wins or not. This kind of differential game problem is also called game of kind. This problem is formulated in this way in order to compute correctly our BRS. Infact, the computation of the Backward Reachable Set is based on the solution of a game of kind. However, our aim is to find what are the control inputs such that we can reach the set; or in other words, considering the pursuit-evasion game, we don't want to know if the evader (our control input) wins or loses but we want to understand which are the control inputs such that we can win the pursuit-evasion game. So we want to pass from a game of kind in which the outcome is a binary value {Win = 1, Loss = 0} for Player 1 to a game of degree in which the outcome is a value in the real space for Player 1 that can give us information about the final result of the game. A solution to do this transformation is the level set method that will be discussed in section 2.5.  
 The BRS, as said in previous section, comes from the solution of a differential game; more precisely, the lower value function V(t,x) (see “Level Set Method” section) is the viscosity solution of a Hamilton-Jacobi-Isaacs (HJI) partial differential equation (PDE) whose the concepts are explained better in the next sections. 
 
 \subsection{Hamilton-Jacobi Equation}					
-In physics, the Hamilton-Jacobi equation is an alternative formulation of classical mechanics. It is a first-order nonlinear partial differential equation of the form $H(x,u_x(x,\alpha,t),t)+u_t(x,\alpha,t)=K(\alpha,t)$ with independent variables $(x,t)\in \mathbb{R}^n \times \mathbb{R}$ and parameters $\alpha \in \mathbb{R}^n$. It has wide applications in many scientific fields like mechanics. Its solutions determine infinite families of solutions of Hamilton's ordinary differential equations, which are the equations of motion of a mechanical system. In our case, the family of solutions that come from the computation of the HJI PDE and the variational inequality (see Theorems 1 and 2 in “Problem Formulation”) is the viscosity solution. 
+In physics, the Hamilton-Jacobi equation is an alternative formulation of classical mechanics. It is a first-order nonlinear partial differential equation of the form $H(x,u_x(x,\alpha,t),t)+u_t(x,\alpha,t)=K(\alpha,t)$ with independent variables $(x,t)\in \mathbb{R}^n \times \mathbb{R}$ and parameters $\alpha \in \mathbb{R}^n$. It has wide applications in many scientific fields like mechanics. Its solutions determine infinite families of solutions of Hamilton's ordinary differential equations, which are the equations of motion of a mechanical system. In our case, the family of solutions that come from the computation of the HJI PDE and the variational inequality (see Theorems 1 and 2 in Section III) is the viscosity solution. 
 
 \subsection{Viscosity Solution}
-%ESEMPIO WIKIPEDIA
+
 Viscosity solution is a concept introduced by M.Crandall and P. Lions in 1983; it is a notion of solution that allows it to be, for example, nowhere differentiable but for which strong uniqueness theorems, stability theorems and general existence theorems are all valid. It is a generalization of the solution to a partial differential equation (PDE). It has been found that the viscosity solution is that kind of solution to use in many applications of PDE's, including for example first order equations arising in dynamic programming (the Hamilton–Jacobi–Bellman equation) or differential games (the Hamilton–Jacobi–Isaacs equation). This means that, given the classical concept of PDE 
-% (0)
-under the viscosity solution concept, a certain variable u does not need to be everywhere differentiable. There may be points where Du does not exist and yet u satisfies the equation in an appropriate generalized sense.
-Taking the main concepts of viscosity solutions from M. Crandall, L.C Evans and P.L Lions, (let us first formulate the definition of viscosity solutions in the form we think is the most appealing. We begin by recalling that a function u from 0 into R is said to be differentiable at $y0$ belonging to O  and that $Du(y0) = p0$ belonging to $R^m$, if we have 
+\begin{equation}
+	F(y,u(y), Du(y))=0
+\end{equation}
 
+under the viscosity solution concept, a certain variable $u$ does not need to be everywhere differentiable. There may be points where $Du$ does not exist and yet $u$ satisfies the equation in an appropriate generalized sense.
+Taking the main concepts of viscosity solutions from M. Crandall, L.C Evans and P.L Lions, let $u$ be a function from O into \mathbb{R}  and let $y_0$ belong to $\mathcal{O}$.  The superdifferential and subdifferential of u at $y_0$, denoted, respectively, by $D^+u(y_0)$ and $D^-u(y_0)$ are the set of points for which, respectively, the following two inequalities hold:
 
-%(1)
-
-Here a dot b is the Euclidean scalar product of a and b. and $g(y) = o(|y — y_0 |)$ means
-. 
-%(1) is the conjunction of the two following relations):
-
-let u be a function from O into R and let y0 belong to O.  The superdifferential and subdifferential of u at $y_0$, denoted, respectively, by $D^+u(y\_0)$ and $D^-u(y\_0)$ are the set of points for which, respectively, the following two inequalities hold.:
-
- %(2)
+\begin{equation}
+	\limsup_{y \to y_0} (u(y)-u(y_0)-p_0 \cdot (y-y_0)) |y-y_0|^{-1} \leq 0
+\end{equation}
 and
- %(3)
 
+\begin{equation}
+	\liminf_{y \to y_0} (u(y)-u(y_0)-p_0 \cdot (y-y_0)) |y-y_0|^{-1} \geq 0
+\end{equation}
+
+where $p_0 \cdot (y-y_0)$ is the Euclidean sclar product of $p_0$ and $(y-y_0)$. 
 Given these concepts it is possible to define what is a viscosity solution mathematically. 
-If $D^+u(y\_0)$ and $D^-u(y\_0)$ are nonempty at some x and u is differentiate at x, a viscosity solution of (0) is a function u belonging to C(O) satisfying the two following conditions:
-%(4)
+If $D^+u(y_0)$ and $D^-u(y_0)$ are nonempty at some $x$ and $u$ is differentiate at $x$, a viscosity solution of (3) is a function $u$ belonging to $C(\mathcal{O})$ satisfying the two following conditions:
+
+\begin{equation}
+	F(y,u(),p)\leq 0 \forall y \in \mathcal{O}, \forall p \in D^+ u(y)
+\end{equation}
+
+\begin{equation}
+	F(y,u(),p)\geq 0 \forall y \in \mathcal{O}, \forall p \in D^- u(y)
+\end{equation}
 
 
 \subsection{Level Set Method}
