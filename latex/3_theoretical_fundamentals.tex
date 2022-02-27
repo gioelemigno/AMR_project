@@ -7,7 +7,8 @@ In the literature, the just described reach-avoid set, is also called backward r
 All systems in the real world are subject to a disturbance, hence they have two different kinds of inputs, a controllable one $u$ (control) and another uncontrollable $d$ (disturbance); for that reason the computation of the BRS can be formulated in terms of a two-player game. For example, consider an aircraft that has to follow a trajectory to complete a task, the system has two inputs: a control input (Player 1) and a disturbance (Player 2), in this scenario, the disturbance could be the wind. Suppose now that there is a goal position to reach (target set) along the trajectory, therefore the control input tries to bring the state at the target and the disturbance to steer it away, in this case, the BRS contains all the initial states for which exists an optimal control command that despite the worst disturbance, brings the system at the goal position. Suppose instead of a goal, there is an obstacle along the trajectory, now the target set is defined by all states of the system that correspond to a collision with the obstacle, therefore, the BRS contains those states which could lead to a collision despite the best possible control actions. In both cases, the BRS can be computed by studying the outcome of the game between the two players. Due to the way they are formulated, those two games are “games of kind”, namely games in which the outcome is binary: system reaches or not the target set. In order to solve this type of game it is necessary to translate it into a “games of degree” in which players want to optimize a cost function $J$, and have opposite goals, one tries to maximize and the other to minimize it. An approach we will see later, called Level Set Method, can perform this kind of transformation by translating the problem into a standard differential game.
 
 \subsection{Differential Games}
-In this section we will introduce the basic concepts of the game theory related to a two person, zero-sum differential game.
+In this section we will introduce the basic concepts of the game theory related to a two person, zero-sum differential game. Zero-sum game is a mathematical representation in game theory of a situation which involves two sides, where the result is an advantage for one side and a loss for the other. If the total gains of the participants are added up, and the total losses are subtracted, they will sum to zero. 
+\newline
 
 \subsubsection{Definition of the differential game}
 Consider the system $\dot{x}=f(x, u, d)$ with $x\in\mathbb{R}^n$, $u\in U\subseteq \mathbb{R}^m$, $d\in D\subseteq \mathbb{R}^p$, $f:\mathbb{R}^n \times U \times D \rightarrow \mathbb{R}^n$ and $t \in [\tau_i, \tau_f]$. The inputs $u(\cdot)$, $d(\cdot)$ represent Player 1 (control) and Player 2 (disturbance) respectively, we assume that they are drawn from the set of measurable functions \cite{evans}\cite{brief_intro}:
@@ -41,12 +42,68 @@ In order to complete the game definition is necessary to introduce the payoff fu
 	J(x, t, u(\cdot), d(\cdot)) = \int_{t}^{\tau_f} c(x(s),d(s),u(s),s)  \,ds + q(x(\tau_f)) 
 \end{equation}
 The payoff function represents the reward/cost obtained by the two players at the end of the differential game (\ref{ode}) started at time $t$ with an initial state $x$, and subject to the commands  $u(\cdot)$, $d(\cdot)$ chosen by Player 1 and Player 2 respectively. The function $c(\cdot)$ indicates a running cost, therefore the first term of (\ref{payoff}) is the reward gained during the game (trajectory). The second term instead, uses $q(\cdot)$ to evaluate the final state $x(\tau_f)$ reached.
+\newline
 
 \subsubsection{Value of the game}
 In order to solve the game, namely computes its outcome, it's necessary to define the goal and the information pattern of each player. Since we are referring to a zero-sum game, the aims of the players must be opposite, without loss of generality we assume Player 1 ($u(\cdot)$) wants to minimize the cost function $J(\cdot)$ and Player 2 ($d(\cdot)$) tries to maximize it. The information pattern of a game indicates which information a player has respect to its opponent.
-In the case of simple games, usually there exists a dominant strategy for each player, namely an optimal strategy that is better than other ones independently to the opponent's strategy. In these cases it is easy to solve the game since, assuming rational players, we know a priori the strategies that will be chosen and therefore we can compute the game outcome in advantage. In more complex games like the differential game (\ref{ode}) in which no longer exists dominant strategies, we cannot predict the outcome and therefore we have to find another way to solve game. For this reason in game theory two quantities called lower value $V(\cdot)$ and upper value $U(\cdot)$ are defined. The lower value $V(\cdot)$ indicates the lowest possible outcome of the game (lowest value of $J(\cdot)$, the upper value $U(\cdot)$ is instead the highest one. These values can be defined by giving to a player an advantage respect to the other one, as done in \cite{evans} \cite{reach_avoid_with_dist} \cite{brief_intro} to give a strategic advantage to a player we impose to him the use of a non-anticipative strategy
 
+In the case of simple games, usually there exists a dominant strategy for each player, namely an optimal strategy that is better than other ones independently to the opponent's strategy. In these cases it is easy to solve the game, since assuming rational players, we know a priori the strategies that will be chosen and therefore we can compute the game outcome in advance. In more complex games like the differential game (\ref{ode}) in which no longer exists dominant strategies, we cannot predict the outcome and therefore we have to find another way to solve the game. For this reason in game theory two quantities called lower value $V^-(\cdot)$ and upper value $V^+(\cdot)$ are defined. The lower value $V(\cdot)$ indicates the lowest possible outcome of the game (lowest value of $J(\cdot)$, the upper value $U(\cdot)$ is instead the highest one. These values can be defined by giving to a player an advantage respect to the other one, as done in \cite{evans} \cite{reach_avoid_with_dist} \cite{brief_intro} to give a strategic advantage to a player we impose to him the use of a non-anticipative strategy. During the game, we assume that each player can choose its own input by knowing the current state of the system (system feedback), in addition to this information, if a player can use a nonanticipative strategy then it knows also the current input chosed by its opponent \cite{mitchell_time_dep_HJ}.
+The lower value of the game is defined by giving to the player that wants to minimize the cost function $J(\cdot)$ the strategic advantage, therefore we define a nonanticipative strategy for $u(\cdot)$ in the following way \cite{evans}:
 
+\begin{equation}
+	\label{eq:non_ant_stra_u}
+	\begin{split}
+		\gamma \in \Gamma \triangleq 
+		& \left\{ 
+			\alpha : \mathcal{D}(t) \rightarrow \mathcal{U}(t)\,|\,d(r) = \hat{d}(r) \in \mathcal{D}(t)
+		\right. \\ 
+		& \textrm{for almost every} \;r \in [t,s] \\
+		& \implies \alpha[d](r)= \alpha[\hat{d}](r) \\
+		& \left. 
+			\textrm{for almost every} \; r \in [t,s] 
+		\right\}  
+	\end{split}
+\end{equation}
+
+What the formula says is that, a map $\alpha : \mathcal{D}(t) \rightarrow \mathcal{U}(t)$ is a nonanticipative strategy if for any $s \geq 0$, for any $d(\cdot)$ and $\hat{d}(\cdot)$ belonging to $\mathcal{D}$ such that $d(\cdot)$ and $\hat{d}(\cdot)$ coincide almost everywhere on $[t,s]$, the image $\alpha(d_1(\cdot))$ and $\alpha(d_2(\cdot))$ coincide almost everywhere on $[t,s]$ This restriction means that if player 1 cannot distinguish between input signals $ \alpha (d( \cdot )) $ and $ \alpha (\hat{d}( \cdot ) )$ of player 2 until after time $s$, then player 1 cannot respond differently $( \alpha [d](r) = \alpha [\hat{d}](r))$ to those signals until after time $s$. Or in other words, player 1 cannot respond differently to two different player 2 disturbances until they become different.
+
+Now we can define the lower value of the game $V(x,t)$ by allowing $u(\cdot)$ to use $\gamma(\cdot)$:
+\begin{equation}
+	\label{lower_value_game}
+	V^-(x,t) \triangleq \inf_{\gamma(\cdot) \in \Gamma(\cdot)}\sup_{d(\cdot) \in \mathcal{D}(\cdot)}J(x,t, \gamma[d](\cdot), d)
+\end{equation}
+
+As mentioned before, in general $V^-(x,t)$ is not the outcome but represents the lower outcome possible of the game started at time $t$ with initial state $x$. However it is important to highlight that if we assume the use of the information pattern just described (Player 1 uses nonanticipative), then $V^-(x,t)$ is the actual outcome of the game.
+
+In a similar way we can define the upper value of the game $V^+(x,t)$, this time Player 2 ($d(\cdot)$) uses a nonanticipative strategy defined as:
+\begin{equation}
+	\label{eq:non_ant_stra_d}
+	\begin{split}
+		\delta \in \Delta \triangleq 
+		& \left\{ 
+			\alpha : \mathcal{U}(t) \rightarrow \mathcal{D}(t)\,|\,u(r) = \hat{u}(r) \in \mathcal{U}(t)
+		\right. \\ 
+		& \textrm{for almost every} \;r \in [t,s] \\
+		& \implies \alpha[u](r)= \alpha[\hat{u}](r) \\
+		& \left. 
+			\textrm{for almost every} \; r \in [t,s] 
+		\right\}  
+	\end{split}
+\end{equation}
+
+The upper value is then defined by giving to $d(\cdot)$ (player that wants maximizes $J(\cdot)$) the strategic advantage:
+\begin{equation}
+	\label{upper_value_game}
+	V^+(x,t) \triangleq \sup_{\delta(\cdot) \in \Delta(\cdot)}\inf_{u(\cdot) \in \mathcal{U}(\cdot)} J(x,t, u, \delta[u](\cdot))
+\end{equation}
+
+For theroretical completeness we note that $V^-(x,t) \leq V^+(x,t)$ for any $(x,t)$, and in those cases in which equality holds, the game is said to have value and $V(x,t)\triangleq V^-(x,t) = V^+(x,t)$ is called the value of the game. \cite{new_paper} \newline
+
+\subsubsection{Differential Game in Reachability Analysis}
+Let's try now to understand how differential games theory is related to a reachablity problem, to do that assume we are in the case in which we have a set to reach, namely the target set is a desired set of states. In this case Player 1 tries to bring the system towards the target with its input $u(\cdot)$ but in the meanwhile the disturbance (Player 2) tries to steer the system away the target with its input $d(\cdot)$. This problem can be through as a game between the two players, however in this form, the game theory just described cannot be used since the reward function is a simple boolean value: at the end of the game the system state reaches (Player 1 wins) or not the target set, so we have $J(\cdot)=\left\{0 \textrm{ (win)},1\textrm{ (loss)}\right\}$. To solve this issue we can easily use the Level Set Method that allows to rewrite $J(\cdot)$ as a real function, we will see this later. For the moment assume Player 1 wants to minimize a real value function $J(\cdot)$ and Player 2 tries to maximize it. 
+Now we have to understand why the lower and the upper value of the game are important for our purpose, as said before $V^-(x,t)$ or $V^+(x,t)$ is the actual outcome of the game only if we give a strategic advantage to one player, therefore introducing an information pattern for our game we can easily define formally the outcome through one of them. In order to consider always the worst possible scenario, the strategic advantage is given to the disturbance $d(\cdot)$, then since its aim is to minimize the cost function, the outcome of the game is defined by $V^-(x,t)$.
+In a different scenario in which $u(\cdot)$ maximize and $d(\cdot)$ minimizes $J(\cdot)$ then since the strategic advantage must be assigned to the disturbance, the outcome this time is given by $V^+(x,t)$. In this paper we always refers to the first scenario. 
+As we will see later the BRS is related to $V^-(x,t)$, this allows us to solve our reachability problem using the lower value of the game. One of the most important results of dynamic programming is that the value functions $V^\pm(x,t)$ are the viscosity solutions of two particular variational inequalities in the form of a Hamilton-Jacobi-Isaacs equation. We will see this formally later, let's now see what is a HJI equation, a viscosity solution and how use the Level Set Method.
 
 \begin{comment}
 %COSA E’ LOWER VALUE DEL GAME
@@ -72,11 +129,12 @@ In problems in which our target set is a reach set, we assume that the Player 1 
 	\end{split}
 \end{equation}
 
-What the formula says is that, a map $\alpha : \mathcal{D(t)} \rightarrow \mathcal{U(t)}$ is a nonanticipative strategy if  for any $s \geq 0$, for any $d_1(\cdot)$ and $d_2(\cdot)$ belonging to $\mathcal{D}$ such that $d_1(\cdot)$ and $d_2(\cdot)$ coincide almost everywhere on $[t,s]$, the image $\alpha(d_1(\cdot))$ and $\alpha(d_2(\cdot))$ coincide almost everywhere on $[t,s]$
+What the formula says is that, a map $\alpha : \mathcal{D(t)} \rightarrow \mathcal{U(t)}$ is a nonanticipative strategy if for any $s \geq 0$, for any $d_1(\cdot)$ and $d_2(\cdot)$ belonging to $\mathcal{D}$ such that $d_1(\cdot)$ and $d_2(\cdot)$ coincide almost everywhere on $[t,s]$, the image $\alpha(d_1(\cdot))$ and $\alpha(d_2(\cdot))$ coincide almost everywhere on $[t,s]$
 
 This restriction means that if player 1 cannot distinguish between input signals $ \alpha (d_1( \cdot )) $ and $ \alpha (d_2( \cdot ) )$ of player 2 until after time $s$, then player 1 cannot respond differently $( \alpha [d_1](r) = \alpha [ d_2 ](r))$ to those signals until after time $s$. Or in other words, player 1 cannot respond differently to two different player 2 disturbances until they become different.
 
 The aim for this problem is based on a two-person-zero-sum differential game. Zero-sum game is a mathematical representation in game theory of a situation which involves two sides, where the result is an advantage for one side and a loss for the other. If the total gains of the participants are added up, and the total losses are subtracted, they will sum to zero.
+
 In the context of reachability analysis our aim is to reach the goal by finding the control input (Player 1) that minimizes the distance from the reach set while the disturbance  (Player 2) at the same time tries to maximize its action to steer the trajectory away from the set. We can translate this as an optimization problem in which we want to optimize a cost function (that depends on the state, control input and disturbance) of the final state and a running cost that can be seen as a reward accumulated over system trajectories. 
 It is possible to formalize what has been said above in this way: let $J_t(x,d(\cdot ),u(\cdot))$ denote the cost accumulated during horizon $[\tau_i ,tau_f ]$ (in Backward Reachable Set the set interval is $[t,0]$), when Player 1 and Player 2 play control $u(\cdot)$ and $d(\cdot)$ respectively. $J_t(\cdot)$ can be expressed as:
 
@@ -86,7 +144,11 @@ It is possible to formalize what has been said above in this way: let $J_t(x,d(\
 \end{equation}
 
 In the zero-sum setting, given this cost function, for the discussion held above, the aim of the game is, for Player 1, to minimize this function, while for Player 2 the aim is to maximize it.
-The solution of this problem is a binary solution, this means that given our problem formulation we can say if we avoid or not the set considered; or in other words the outcome of the game says if our control input (the evader) wins or not. This kind of differential game problem is also called game of kind. This problem is formulated in this way in order to compute correctly our BRS. Infact, the computation of the Backward Reachable Set is based on the solution of a game of kind. However, our aim is to find what are the control inputs such that we can reach the set; or in other words, considering the pursuit-evasion game, we don't want to know if the evader (our control input) wins or loses but we want to understand which are the control inputs such that we can win the pursuit-evasion game. So we want to pass from a game of kind in which the outcome is a binary value {Win = 1, Loss = 0} for Player 1 to a game of degree in which the outcome is a value in the real space for Player 1 that can give us information about the final result of the game. A solution to do this transformation is the level set method that will be discussed in section 2.5.  
+
+
+The solution of this problem is a binary solution, this means that given our problem formulation we can say if we avoid or not the set considered; or in other words the outcome of the game says if our control input (the evader) wins or not. This kind of differential game problem is also called game of kind. This problem is formulated in this way in order to compute correctly our BRS. Infact, the computation of the Backward Reachable Set is based on the solution of a game of kind. However, our aim is to find what are the control inputs such that we can reach the set; or in other words, considering the pursuit-evasion game, we don't want to know if the evader (our control input) wins or loses but we want to understand which are the control inputs such that we can win the pursuit-evasion game. 
+
+So we want to pass from a game of kind in which the outcome is a binary value {Win = 1, Loss = 0} for Player 1 to a game of degree in which the outcome is a value in the real space for Player 1 that can give us information about the final result of the game. A solution to do this transformation is the level set method that will be discussed in section 2.5.  
 The BRS, as said in previous section, comes from the solution of a differential game; more precisely, the lower value function V(t,x) (see “Level Set Method” section) is the viscosity solution of a Hamilton-Jacobi-Isaacs (HJI) partial differential equation (PDE) whose the concepts are explained better in the next sections. 
 
 \end{comment}
@@ -128,7 +190,7 @@ If $D^+u(y_0)$ and $D^-u(y_0)$ are nonempty at some $x$ and $u$ is differentiate
 
 
 \subsection{Level Set Method}
-As mentioned before, in order to compute the BRS is necessary to solve a game of kind where the outcome is boolean: the system state either reaches the target set or not. Level Set Method can be used to translate this game into a game of degree, where players share an objective function to optimize. The basic idea of this approach is to encode the boolean outcome through a quantitative function and compare its value at the end of the game to a threshold value, usually zero, to determine whether or not the system reached the target set.
+As mentioned before, in order to compute the BRS is necessary to solve a game of kind where the outcome is boolean: the system state either reaches the target set or not. Level Set Method can be used to translate this game into a game of degree, where players share an objective function to optimize. The basic idea of this approach is to encode the boolean outcome through a quantitative function $g(\cdot)$ and compare its value at the end of the game to a threshold value, usually zero, to determine whether or not the system reached the target set.
 The first step is to define a Lipschitz function $g(x)$, where $x$ represents the system state, such that the target set $R$ corresponds to the zero sublevel set of $g(x)$, that is, $x\in R \Leftrightarrow g(x) \leq 0$. We indicated the target set with $R$ (reach) since from now on we suppose that the set contains goal states, namely states to reach. Now we can define the cost function of the game $J(\cdot)$, we are not interested in any kind of running cost, therefore we consider only the value of $g(x)$ at the end of a game in which $t \in [\tau_i, \tau_f]$:
 
 \begin{equation}
