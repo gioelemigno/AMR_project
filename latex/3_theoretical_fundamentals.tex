@@ -201,14 +201,53 @@ The first step is to define a Lipschitz function $g(x(\tau))$, where $x(\tau)$ r
     J(x, t, u(\cdot), d(\cdot)) = g(x(T))
 \end{equation}
 
-Assuming our reachability problem consists only of reaching a target set $R$, then the goal of our control input $u(\cdot)$ is to minimize $J(\cdot)$ while the disturbance $d(\cdot)$ tries to do the opposite. Then giving the strategic advantage to $d(\cdot)$,namely force it to use the nonanticipative strategy $\delta$, we define the outcome of the game through its upper value:
+Assuming our reachability problem consists only of reaching a target set $R$, then the goal of our control input $u(\cdot)$ is to minimize $J(\cdot)$ while the disturbance $d(\cdot)$ tries to do the opposite. Then giving the strategic advantage to $d(\cdot)$, namely force it to use the nonanticipative strategy $\delta[d](\cdot)$, we define the outcome of the game through its upper value:
 \begin{equation}
 	\begin{split}
 		V^+(x, t) 
 		& = \sup_{\delta(\cdot) \in \Delta(\cdot)}\inf_{u(\cdot) \in \mathcal{U}(\cdot)} J(x,t, u, \delta[u](\cdot))    \\
 		& = \sup_{\delta(\cdot) \in \Delta(\cdot)}\inf_{u(\cdot) \in \mathcal{U}(\cdot)} g(x(T))
 	\end{split}
-	\end{equation}
+\end{equation}
+
+In practical scenarios, along the trajectory of a dynamical system there may be both goals to reach and obstacles to avoid. The goals to reach can be represented by the target set $R$ as previously done, the set of states to avoid instead, can be defined with another set $A$ (avoid) that contains all the system state $x$ that corresponds to an object collision. This kind of formulation is adopted in \cite{reach_avoid_with_dist} however, we will use another one from \cite{new_paper} in which instead of $A$, its complementary set $K$ is defined. This choice is due to the fact that \cite{new_paper} provides a more advanced problem formulation allowing sets $R$ and $K$ to be time-varying, namely allows to define a reachability problem in which both the goals and the obstacles can vary their positions over time. According to this new formulation, since $R$ can vary over time, also the function $g(\cdot)$ must be time-dependent. The new set $K$ is characterized similarly to $R$ by intoducing another function $h(\cdot)$. Formally: consider the sets $R$, $K$ related respectively to the level sets of two Lipschitz continuous and bounded functions $g: \mathbb{R}^n \times s \in [t, T]\rightarrow \mathbb{R}$, $h: \mathbb{R}^n \times s \in [t, T] \rightarrow \mathbb{R}$, then the two sets can be characterized as:
+
+\begin{equation} 
+	\label{R}
+	R = \left\{ (x,s) \in \mathbb{R}^n \times [t,T]\,|\, g(x, s) \leq 0 \right\}
+\end{equation}
+\begin{equation} 
+	\label{K}
+	K = \left\{(x,s) \in \mathbb{R}^n \times [t,T] \,|\, h(x, s) \leq 0 \right\}
+\end{equation}
+
+
+The most common choice for the functions $g(\cdot)$ and $h(\cdot)$ is to use the distance between the current state $x$ and the set of interested, namely:
+
+\begin{equation}
+\label{g}
+    g(x, s) =
+\left\{
+	\begin{array}{ll}
+		-d(x, R^c)  & \mbox{if } x \in R \\
+		d(x, R) & \mbox{if } x \in R^c
+	\end{array}
+\right.
+\end{equation}
+
+\begin{equation}
+\label{h}
+    h(x, s) =
+\left\{
+	\begin{array}{ll}
+		-d(x, K^c)  & \mbox{if } x \in K \\
+		d(x, K) & \mbox{if } x \in K^c
+	\end{array}
+\right.
+\end{equation}
+
+Since $g(\cdot)$, $h(\cdot)$ must be bounded, we will see later why, we can introduce two constants $C_g$ $C_h$ to impose a saturation to the distance functions, or alternatively, we can use the arctangent of the signed distance, in this way the resulting functions are bounded and also globally Lipschtz \cite{reach_avoid_no_dist}. 
+In the next section we will see how the value function $V^\pm(\cdot)$ is formulated when we have both a reach $R$ and a constraints $K$ set, and most importantly how it can be solved in order to calculate the BRS. In the following sections we will refer to the BRS as a reach-avoid set (RAS) to highlight the fact that there is both a set to reach and one to avoid, this last is implicity defined by its complementary $K$, namely $A \triangleq K^c$.
 
 \begin{comment}	
 The lower value of the game is given by the following value function $V(x,t)$ in which the control $u$ tries to minimize and the disturbance $d$ to maximize the cost $J(\cdot)$.
