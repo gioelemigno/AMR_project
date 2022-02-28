@@ -229,8 +229,8 @@ The most common choice for the functions $g(\cdot)$ and $h(\cdot)$ is to use the
     g(x, s) =
 \left\{
 	\begin{array}{ll}
-		-d(x, R^c)  & \mbox{if } x \in R \\
-		d(x, R) & \mbox{if } x \in R^c
+		-d(x, s, R^c)  & \mbox{if } x \in R \\
+		d(x, s, R) & \mbox{if } x \in R^c
 	\end{array}
 \right.
 \end{equation}
@@ -240,14 +240,15 @@ The most common choice for the functions $g(\cdot)$ and $h(\cdot)$ is to use the
     h(x, s) =
 \left\{
 	\begin{array}{ll}
-		-d(x, K^c)  & \mbox{if } x \in K \\
-		d(x, K) & \mbox{if } x \in K^c
+		-d(x, s, K^c)  & \mbox{if } x \in K \\
+		d(x, s, K) & \mbox{if } x \in K^c
 	\end{array}
 \right.
 \end{equation}
 
 Since $g(\cdot)$, $h(\cdot)$ must be bounded, we will see later why, we can introduce two constants $C_g$ $C_h$ to impose a saturation to the distance functions, or alternatively, we can use the arctangent of the signed distance, in this way the resulting functions are bounded and also globally Lipschtz \cite{reach_avoid_no_dist}. 
-In the next section we will see how the value function $V^\pm(\cdot)$ is formulated when we have both a reach $R$ and a constraints $K$ set, and most importantly how it can be solved in order to calculate the BRS. In the following sections we will refer to the BRS as a reach-avoid set (RAS) to highlight the fact that there is both a set to reach and one to avoid, this last is implicity defined by its complementary $K$, namely $A \triangleq K^c$.
+
+In the next section we will see how the value function $V^+(\cdot)$ is formulated when we have both a reach $R$ and a constraints $K$ set, and most importantly how it can be solved in order to calculate the BRS. In the following sections we will refer to the BRS as a reach-avoid set (RAS) to highlight the fact that there is both a set to reach and one to avoid, this last is implicity defined by its complementary $K$, namely $A \triangleq K^c$.
 
 \begin{comment}	
 The lower value of the game is given by the following value function $V(x,t)$ in which the control $u$ tries to minimize and the disturbance $d$ to maximize the cost $J(\cdot)$.

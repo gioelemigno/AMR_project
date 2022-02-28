@@ -1,0 +1,31 @@
+In this section we will see how all the previous theoretical concepts can be applied to solve a reachability problem, in which the system state has to reach a desired set $R$ while remains in the constraints set $K$ that represents the complementary of the set of states $A$ that correspond to a collision between the system and an obstacle in the real world.
+
+Given the previous specifications, we can define two different kinds of reachability problems. In the first one we are interested in reaching safely $R$ exactly at the end of the game $(s=t)$, in the second instead, the system can reach safely $R$ at any $s$ inside the time horizon $[t, T]$. In the following we will focus our attention only on this last one.
+
+Consider the system dynamics (\ref{ode}), the two functions $g(\cdot)$, $h(\cdot)$ defined in (\ref{g})(\ref{h}) and used to represent the target set $R$ and the constraint set $K$ respectively. As said before, the system dynamics admits a unique trajectory $x(s)$ from an initial state $x$ at time $t$ under inputs $u(\cdot)$ and $d(\cdot)$. We denote this solutions as:
+\[
+    \phi(s; x, t, u(\cdot), d(\cdot)) : [t, T] \rightarrow \mathbb{R}^n
+\]
+
+\subsection{Payoff Function}
+We have already seen the payoff function of a reachability problem in which there is only a set to reach (\ref{eq:j_level_set}), now we have to consider also the constraints set $K$ and to do that we can use the following cost function \cite{new_paper}:
+\begin{equation}
+    \label{j_ras}
+    J(x, t, u(\cdot), d(\cdot)) =  
+        \min_{\tau \in [t, T]}
+        \left\{
+            \mathcal{J}(\tau, x, t, u(\cdot), d(\cdot))
+        \right\}
+\end{equation}
+\begin{equation}
+    \label{j_ras}
+    \mathcal{J}(\tau, x, t, u(\cdot), d(\cdot)) =  
+        \max
+        \left\{
+            g(\mathcal{X}(\tau), \tau), \max_{r \in [t, \tau]}h(\mathcal{X}(\tau), r)            
+        \right\}
+\end{equation}
+Where: 
+\[\mathcal{X}(\tau)=\phi(\tau; x, t, u(\cdot), d(\cdot))\]
+
+% EXPLAIN, THEN DEFINITION BRS, RELATIONSHIP BRS AND V, FINALLY THEOREM WITH H
