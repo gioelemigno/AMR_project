@@ -2,7 +2,7 @@ In this section we will see how all the previous theoretical concepts can be app
 
 Given the previous specifications, we can define two different kinds of reachability problems. In the first one we are interested in reaching safely $R$ exactly at the end of the game $(s=t)$, in the second instead, the system can reach safely $R$ at any $s$ inside the time horizon $[t, T]$. In the following we will focus our attention only on this last one.
 
-Consider the system dynamics (\ref{ode}), the two functions $g(\cdot)$, $h(\cdot)$ defined in (\ref{g})(\ref{h}) and used to represent the target set $R$ and the constraint set $K$ respectively. As said before, the system dynamics admits a unique trajectory $x(s)$ from an initial state $x$ at time $t$ under inputs $u(\cdot)$ and $d(\cdot)$. We denote this solutions as:
+Consider the system dynamics (\ref{ode}), the two functions $g(\cdot)$, $h(\cdot)$ defined in (\ref{g})(\ref{h}) and used to represent the target set $R$ and the constraint set $K$ respectively. As said before, the system dynamics admits a unique trajectory $x(s)$ from an initial state $x$ at time $t$ under inputs $u(\cdot)$ and $d(\cdot)$. We denote this solution as:
 \[
     \phi(s; x, t, u(\cdot), d(\cdot)) : [t, T] \rightarrow \mathbb{R}^n
 \]
@@ -18,7 +18,7 @@ We have already seen the payoff function of a reachability problem in which ther
         \right\}
 \end{equation}
 \begin{equation}
-    \label{j_ras}
+    \label{jj_ras}
     \mathcal{J}(\tau, x, t, u(\cdot), d(\cdot)) =  
         \max
         \left\{
@@ -27,5 +27,14 @@ We have already seen the payoff function of a reachability problem in which ther
 \end{equation}
 Where: 
 \[\mathcal{X}(\tau)=\phi(\tau; x, t, u(\cdot), d(\cdot))\]
+
+The $J(\cdot)$ function is used to evaluate the game and therefore determines if Player 1 ($u(\cdot)$) won or lost. The expression (\ref{j_ras}) considers the value of another function $\mathcal{J}(\cdot)$ for all time $\tau \in [t, T]$ during the game. For each instant $\tau$, $\mathcal{J}(\cdot)$ takes the maximum between two quantities, the first one uses $g(\cdot)$ to determine if the current system state is inside the reach set $R$ and the second instead, uses $h(\cdot)$ to check whether or not the state had ever left the constraints set $K$ so far, namely on time interval $[t, \tau]$. The maximum value of $h(\cdot)$ is taken in order to keep in mind a previous collision before $\tau$, indeed we recall that $(x,s) \in K \Leftrightarrow h(x,s) \leq 0$, therefore a positive value of $h(\cdot)$ indicates an exit from $K$ (obstacle collision).
+So, for a given $\tau \in [t, T]$, we have $\mathcal{J} \leq 0$ if and only if, the system trajectory started at time $t$ with initial state $x$, reaches the target $R$ at time $\tau$ without ever having collided with an obstacle on $[t, \tau]$, if this situation takes place for any $\tau \in [t, T]$ then Player 1 wins. For that reason, $J(\cdot)$ takes the minimum time $\tau$, in this way the control input $u(\cdot)$ can win at any moment during the game. It is important to highlight that $J(\cdot)$ does not take into account any collision after the system reached the target set $R$. 
+
+Once defined the cost function of the game, $V^-(x,t)$ and $V^+(x,t)$ are defined in the same way of (\ref{lower_value_game}) (\ref{upper_value_game}) respectively.
+
+\subsection{Definition Reach-Avoid Set}
+We are finally ready to define formally the RAS. As said before, we assume $u(\cdot)$ tries to minimize the distance of the system state to $R$, and $d(\cdot)$ tries to do the opposite, potentially also to bring the state outside the constraints set $K=A^c$, therefore we give the strategic advantage to the disturbance then, the outcome of the game is given by $V^+(x,t)$ and using it we can compute $RAS^+$. For completeness, we also report the definition of $RAS^-$ namely the reach-avoid set computed through the lower value of the game $V^-(x,t)$.
+
 
 % EXPLAIN, THEN DEFINITION BRS, RELATIONSHIP BRS AND V, FINALLY THEOREM WITH H
