@@ -78,6 +78,46 @@ These two formulations of the reach-avoid set are related to the outcome of the 
         \right\}
     \]
 \end{prop}
+These two reach-avoid sets are related, indeed the reach-avoid set computed when the strategic advantage is given to the disturbance is a subset of the one computed given the advantage to the control input \cite{new_paper}:
+\begin{equation}
+    RAS^+ \subseteq RAS^-
+\end{equation}
+This relation is the reason why we have chosen to give the advantage to the disturbance, in this way we increase the safety margin.
 
+\subsection{Hamilton-Jacobi-Isaacs Equation}
+Given an information pattern, the reach-avoid set $RAS^\pm$ is described by the zero sublevel of the game's outcome $V^\pm(x,t)$. This last is the viscosity solution of a specific Hamilton-Jacobi-Isaacs equation \cite{new_paper}:
+\begin{theorem}
+    Assume $f(\cdot)$ defined as done in (\ref{ode}), $g(x,t)$, $h(x,t)$ globally Lipschitz continuous. Then the value function $V^\pm(x,t)$ is the unique viscosity solution of the following variational inequality in the form of a Hamilton-Jacobi-Isaacs equation:
+    \[
+        \max
+        \left\{
+            \mathcal{H}, \Delta h
+        \right\} = 0
+    \]
+    \[
+        \mathcal{H} \triangleq \min
+        \left\{
+            \frac{\partial V^\pm(x,t)}{\partial t} + 
+            H^\pm\left(x, \frac{\partial V^\pm(x,t)}{\partial x}, t\right), \Delta g
+        \right\} 
+    \]
+    \[
+        \Delta h \triangleq h(x,t) - V^\pm(x,t), \quad \Delta g \triangleq g(x,t) - V^\pm(x,t)
+    \]
+    \[
+        t \in [0, T] \quad x \in \mathbb{R}^n
+    \]
+    with terminal condition
+    \[
+        V^\pm(x,T) = \max \left\{ g(x,T), h(x,T) \right\} \quad x \in \mathbb{R}^n
+    \]
+    The upper and lower Hamiltonians $H^\pm$ are given by:
+    \[
+        H^+(x,p,t) = \min_{u \in U}\max_{d \in D} f(x, u, d)\cdot p
+    \]    
+    \[
+        H^-(x,p,t) = \max_{d \in D}\min_{u \in U} f(x, u, d)\cdot p
+    \]
+\end{theorem}
 
 % EXPLAIN, THEN DEFINITION BRS, RELATIONSHIP BRS AND V, FINALLY THEOREM WITH H
