@@ -34,7 +34,50 @@ So, for a given $\tau \in [t, T]$, we have $\mathcal{J} \leq 0$ if and only if, 
 Once defined the cost function of the game, $V^-(x,t)$ and $V^+(x,t)$ are defined in the same way of (\ref{lower_value_game}) (\ref{upper_value_game}) respectively.
 
 \subsection{Definition Reach-Avoid Set}
-We are finally ready to define formally the RAS. As said before, we assume $u(\cdot)$ tries to minimize the distance of the system state to $R$, and $d(\cdot)$ tries to do the opposite, potentially also to bring the state outside the constraints set $K=A^c$, therefore we give the strategic advantage to the disturbance then, the outcome of the game is given by $V^+(x,t)$ and using it we can compute $RAS^+$. For completeness, we also report the definition of $RAS^-$ namely the reach-avoid set computed through the lower value of the game $V^-(x,t)$.
+We are finally ready to define formally the RAS. As said before, we assume $u(\cdot)$ tries to minimize the distance of the system state to $R$, and $d(\cdot)$ tries to do the opposite, potentially also bringing the state outside the constraints set $K=A^c$, then we give the strategic advantage to the disturbance, in this way the outcome of the game is given by $V^+(x,t)$ and using it we can compute $RAS^+$. For completeness, we also report the definition of $RAS^-$ namely the reach-avoid set computed through the lower value of the game $V^-(x,t)$.
+
+Given an information pattern, we define the reach-avoid set as the set of point $(x,t)$ for which the system trajectory $\phi(\cdot)$, starting at time $t$ with initial state $x$ and both players acting optimally, reaches the target set $R$ at some instant $\tau \in [t, T]$ while remaining inside the constraints set $K$ for all $s \in [t, \tau]$. We indicate with $\mathcal{R}_s$, $\mathcal{K}_s$ the target set $R$ and the constraints set $K$ at time $s$ respectively.
+
+When the strategic advantage is given to the player that wants to maximize the outcome ($d(\cdot)$), we indicate the reach-avoid set with $RAS^+$ that is formally defined as \cite{new_paper}:
+\begin{multline}
+    \label{ras_p}
+    RAS^+ = 
+    \left\{
+        (x,t) \in \mathbb{R}^n \times [0,T] \,|\, \exists u^*(\cdot) \in \mathcal{U}_{[0, T]},
+    \right.\\
+    \left.
+          \forall \delta(\cdot) \in \Delta_{[0, T]}, \exists \tau \in [t, T], \phi(\tau; x, t, u^*(\cdot), \delta(\cdot)) \in \mathcal{R}_\tau \quad \wedge \quad       
+    \right.\\
+    \left.
+        \forall s \in [t, \tau], \phi(s; x, t, u^*(\cdot), \delta(\cdot)) \in \mathcal{K}_s
+    \right\}
+\end{multline}
+
+Similarly, when the player that tries to minimize uses a nonanticipative strategy:
+\begin{multline}
+    \label{ras_m}
+    RAS^- = 
+    \left\{
+        (x,t) \in \mathbb{R}^n \times [0,T] \,|\, \exists \gamma^*(\cdot) \in \Gamma_{[0, T]},
+    \right.\\
+    \left.
+          \forall d(\cdot) \in \mathcal{D}_{[0, T]}, \exists \tau \in [t, T], \phi(\tau; x, t, \gamma^*(\cdot), d(\cdot)) \in \mathcal{R}_\tau \quad \wedge \quad       
+    \right.\\
+    \left.
+        \forall s \in [t, \tau], \phi(s; x, t, \gamma^*(\cdot), d(\cdot)) \in \mathcal{K}_s
+    \right\}
+\end{multline}
+These two formulations of the reach-avoid set are related to the outcome of the game through the following proposition \cite{new_paper}:
+\begin{prop}
+    \label{ras_p_m_v}
+    The reach-avoid set $RAS^\pm$ is given by the subzero level set of the game's outcome: 
+    \[
+        RAS^\pm=
+        \left\{
+            (x, t) \in \mathbb{R}^n \times [0, T] \,|\, V^\pm(x,t) \leq 0
+        \right\}
+    \]
+\end{prop}
 
 
 % EXPLAIN, THEN DEFINITION BRS, RELATIONSHIP BRS AND V, FINALLY THEOREM WITH H
