@@ -1,2 +1,37 @@
-io mi chiamo filipo
-test gio
+Our case of study focouses on a three-wheel omni-directional mobile robot. Each wheel of the robot can move in each angular direction. The wheels are mounted simmetrycally with 120 degrees from each other and they are at a distance $D$  from the center of mass $C_{m}$. We can represent the robot in the space with a set of coordinates. First of all we call the coordinates of the Fixed GLobal System with $X_{w}$ and $Y_{w}$, so we can define the mobile robot fixed frame as $X_{m}$ and $Y_{m}$ (Those coordinates have their origin in the center of mass $C_{m}$).Then we can specify the direction angle of $X_{m}$ axis which we can call $\theta$. In addiction we can define two more angles called $\alpha$ and $\phi$: $\alpha$ describes the angle of the linear velocity of the robot $v_{r}$ w.r.t. the global system, while $\phi$ is the angle of the linear velocity of the robot $v_{r}$ w.r.t. the robot coordinate system. The linear velocity is related to the angular ones by the kinematic model w.r.t. the robot coordinates:
+MODELLO
+
+Where $v = [\dot{x}^{m}_{R},\dot{y}^{m}_{R},\omega]$ is the vector of robot velocities while $\dot{q} = [\dot{q}_{1},\dot{q}_{2},\dot{q}_{3}]$ is the vector of angular velocities of wheels multiplied by the wheel's radius.
+The kinematic model w.r.t. the global coordinate system links the robot's velocities to the angular velocities.
+
+MODELLO
+
+In this equation we can see a tem multiplied by $d$, this term represents an introduced disturbance in the System. $\delta$ instead represents the orientation of the three wheels.As specified in the previous chapter the goal of the control system is to reach the Target set avoiding obstacles. We can define $\Phi_{G}\leq0$ as the disequaton to satisfy for the target Set and 
+
+\begin{equation}
+	\label{ode}
+	\left\{
+		\begin{array}{ll}
+			\Phi_{A}(x)>0 \text{ if } x \in A \\
+			\Phi_{A}(x)\leq 0 \text{ if } x \notin A
+		\end{array}
+	\right.
+\end{equation}
+
+After that we can definetly define the Constrained HJI partial differential equations with 
+\begin{equation}
+    \frac{\partial{\Phi}}{\partial{t}} + \min \left[ 0,H \left( x,\frac{\partial{\Phi}}{\partial{x}} \right) \right] = 0
+\end{equation}
+The above equation is subject to 
+\begin{equation}
+    \Phi(x,t)\geq - \Phi_{A}(x)
+\end{equation}
+
+The optimized Hemiltonian is here: EQUAZIONE LUNGA
+
+Here we can define $u_{1}$, $u_{2}$ and $u_{3}\in[U_{1}, U_{2}]$. We can choose here $U_{1}=-U_{2}$ to get the optimal control inputs (PERCHÈ????)
+\\
+EQUAZIONI LUNGHISSIME
+\\
+Here we have not to check for all combinations of $u_{1}$ and $u_{2}$ and $u_{3}\in[U_{1},U_{2}]$ or this scenario would be very complex in terms of computation time
+
