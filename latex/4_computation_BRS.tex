@@ -113,9 +113,16 @@ Given an information pattern, the reach-avoid set $RAS^\pm$ is described by the 
     \]
     The upper and lower Hamiltonians $H^\pm$ are given by:
     \[
-        H^+(x,p,t) = \min_{u \in U}\max_{d \in D} f(x, u, d)\cdot p
+        H^+(x,p,t) = \min_{u \in U}\max_{d \in D} p^T f(x, u, d)
     \]    
     \[
-        H^-(x,p,t) = \max_{d \in D}\min_{u \in U} f(x, u, d)\cdot p
+        H^-(x,p,t) = \max_{d \in D}\min_{u \in U} p^T f(x, u, d)
     \]
+    %where:
+    %\[
+    %    p = \nabla V(x(t),y(t),\theta(t),t) = [p_{x},p_{y},p_{\theta }] 
+    %\]
+    \label{th:vis_sol}
 \end{theorem}
+
+The algorithm of the numerical method able to compute the value function $V^\pm(x,t)$ in Th. \ref{th:vis_sol} is described in \cite{new_paper}. Please notice here we use different notations for target and constraints functions.
