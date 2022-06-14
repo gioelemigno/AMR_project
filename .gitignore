@@ -3,4 +3,5 @@
 *.log
 *.gz
 *.fdb_latexmk
-.vscode
+/.vscode
+.vscode/**
