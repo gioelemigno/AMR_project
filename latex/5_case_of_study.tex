@@ -1,3 +1,8 @@
+In order to use HJ-RA to solve a reachability problem in the case of a robot, we have to follow several steps. The first one is the definition of the game dynamics, that in the case of wheeled mobile robot, is usually given by its kinematic model where control input is the wheels velocities. The second step is the definition and computation of the Hamiltonian, in our case the definition is (\ref{h_m}) since we assume $u$ wants to minimize and $d$ to maximize. In addition to that, the numerical method \cite{new_paper} able to compute $V^+(x,t)$ requires also computation of its gradient w.r.t. the vector $p$. The third step is the environment definition, namely definition of $g(x,s)$ and $h(x,s)$ that represent respectively the reach set $\mathcal{R}_s$ and the constraint set $\mathcal{K}_s$ at the time $s$. The final step is the numerical computation of $V^+(x,t)$ using the algorithm in \cite{new_paper}, to do that we can use two Matlab libraries: ToolboxLS \cite{LS} and helperOC \cite{brief_intro}.
+
+Once computed $V^+(x,t)$, in a limited and discretized state-time space, we can use this value function to define a safe control law from each feasible initial states $x_0$ to the reach set.
+
+\subsection{Definition Game Dynamics}
 Our case of study focuses on a three-wheeled omnidirectional mobile robot which is a holonomic robot that has the ability to move simultaneously and independently in translation and rotation. The robot has three omni-wheels equally disposed at $120^\circ$, and have a distance $L$ from their center and the robot's center of mass $R \equiv O_m$.  
 
 \begin{figure}[ht]

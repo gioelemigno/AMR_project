@@ -112,12 +112,16 @@ Given an information pattern, the reach-avoid set $RAS^\pm$ is described by the 
         V^\pm(x,T) = \max \left\{ g(x,T), h(x,T) \right\} \quad x \in \mathbb{R}^n
     \]
     The upper and lower Hamiltonians $H^\pm$ are given by:
-    \[
+    \begin{equation}
         H^+(x,p,t) = \min_{u \in U}\max_{d \in D} p^T f(x, u, d)
-    \]    
-    \[
+        \label{h_p}
+    \end{equation}
+
+    \begin{equation}
         H^-(x,p,t) = \max_{d \in D}\min_{u \in U} p^T f(x, u, d)
-    \]
+        \label{h_m}
+    \end{equation}
+        
     %where:
     %\[
     %    p = \nabla V(x(t),y(t),\theta(t),t) = [p_{x},p_{y},p_{\theta }] 
