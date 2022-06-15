@@ -1,20 +1,23 @@
-In this approach our task is to reach the target set avoiding obstacles. Our Simulations are divided in 2 main cases: 
+In all simulations, $L=1$, control input $u$ is limited in $U = [-\overline{u}, +\overline{u}]$ where $\overline{u}=1.5$ and the disturbance $d$ in $D=[-\overline{d}, +\overline{d}]$ where $\overline{d}=0.15$. In order to take into account robot dimensions in the configuration space ($\mathcal{C}$-space), we approximate its shape as a circle of $radius = (4/3)L$.
+
+Our Simulations are divided in two main cases: 
 \begin{itemize}
     \item The first one takes place in a static environment, where we have fixed obstacles and a fixed target set 
     \item The second one takes place in a dynamic environment with moving obstacles and a moving target set.
 \end{itemize}
-The second case contains 3 sub-cases:  
+The second case contains three sub-cases:  
 \begin{itemize}
-    \item The Robot is near the target set
-    \item The Robot is distant from the target set
-    \item The Robot is outside the $RAS$ (Reach-Avoid Set)
+    \item The Robot starts near the target set
+    \item The Robot starts distant from the target set
+    \item The Robot starts outside the $RAS$ (Reach-Avoid Set)
 \end{itemize}
-In addiction there are other simulations of all these cases with 2 different types of disturbances: 
+In addiction, for each simulation we test two disturbances strategies: 
 \begin{itemize}
-    \item Optimal Disturbance
-    \item Random Disturbance
+    \item Optimal Disturbance (\ref{opt_d})
+    \item Random Disturbance 
 \end{itemize}
-So we will see how the robot performs better actions against a random disturbance
+The random disturbance is sampled from a Normal Gaussian distribution, with mean $\mu=0$ and standard deviation $\sigma=\overline{u}/3$. $\sigma$ has this form since in this way most of the samples ($99.7\%$) are in $D$, those outside are clipped.
+
 \subsection{Static Case}
     As mentioned before in this case the robot has to reach a fixed target set wich is among some rectangular fixed obstacles. The simulation develops in a time of 10 seconds.
     We can start seeing the $RAS$ in different instants of time to see its expansion during the regression.

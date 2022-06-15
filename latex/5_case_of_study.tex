@@ -80,21 +80,22 @@ Since inputs appear linearly in the Hamiltonian, it is easy to solve the min-max
   \label{opt_ham}
 \end{equation}
 Where $u^* = [u_1^*, u_2^*, u_3^*]^T$ and $d^*$ represent the optimal moves for the two players and are given by:
-\begin{equation*}
+\begin{equation}
   u_i = 
 	\begin{cases} 
 		u_{min} &\text{if } \sigma_{ui} \geq 0\\
 		u_{max} &\text{Otherwise} 
 	\end{cases}
-\end{equation*}
+\end{equation}
 
-\begin{equation*}
+\begin{equation}
   d= 
 	\begin{cases} 
 		d_{min} &\text{if } \sigma_{d} \leq 0\\
 		d_{max} &\text{Otherwise} 
 	\end{cases}
-\end{equation*}
+  \label{opt_d}
+\end{equation}
 Please notice that these optimal inputs cannot be computed at prior since first they require the computation of $V^+(x,t)$ necessary to calculate $p = [p_x, p_y, p_{\theta}]^T$.
 
 Finally, as required from the numerical method able to compute $V^+(x,t)$, we compute the partial derivative of (\ref{opt_ham}) w.r.t. to $p$. Please refer to \cite{new_paper} \cite{mitch_phd} for the mathematics reasons behind it.
