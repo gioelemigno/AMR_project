@@ -44,12 +44,63 @@ The first is the computation of the value function $V^+(x,t)$ from which we can 
     \includegraphics
         [width=0.4\textwidth]
         {figures/staticRAS1.png}
-    \caption{Static environment and RAS at end game}
+    \caption{Static environment and RAS (empty) at end game}
     \label{fig:staticRAS1}
 \end{figure}
+
 In $\mathcal{C}$-space the target set has a limited height $\theta \in [-0.1, 0.1]$ since we want the robot reaches the target set in the workspace with a desired orientation $\theta_d$ in a small range around $0\,rad$.
 
 Now that the $RAS$ is defined we can see how the robot, starting from an initial state $x_0$ at time $t=0$, reaches the target set avoiding obstacles despite the disturbance. So since the robot's initial position $x_0 = [-5, -8 -2]$ is in the limits of the $RAS$ we can see that it reaches, after the needed time, the target set in the desired orientation, avoiding the obstacles in its path. Fig. (\ref{fig:static_opt}) shows the trajectory in both configuration and work-space and also the optimal player moves at each time instant of the game. In Fig. (\ref{fig:static_random}) is shown the same experiment but instead of an optimal disturbance we use a random one.
+
+
+%\pagebreak
+%\clearpage
+%\newpage
+\subsection{Dynamic Case}
+Now we will see some more complex cases where reach set and avoid set are not fixed, but they move in the environment. Here we simulated a moving platform which represent a recharging station for the robot. So the robot has to access the platform while this platform is moving downward along the Y-axis with a constant velocity $v=-1$. The platform is not accessible from everywhere, but only from the right side, while the other sides are surrounded by barriers (obstacles). The final desired orientation is the same of static environment ($\theta_d \in [-0.1, 0.1]$), so the target set is not restricted only in small area of the X-axis and Y-axis, but also in terms of the third component $\theta$.
+
+As done before, the first step is the computation of RAS at each instant of the game, in this case we are going to see the $RAS$ regressing over time in a particular direction since the target set, always represented by a green area, can be reached from only one side, see Figs. (\ref{fig:ras_dyn_1.png}), (\ref{fig:ras_dyn_2.png}), (\ref{fig:ras_dyn_3.png}).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics
+        [width=0.4\textwidth]
+        {figures/ras_dyn_1.png}
+    \caption{Dynamic environment and RAS at game start}
+    \label{fig:ras_dyn_1.png}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics
+        [width=0.4\textwidth]
+        {figures/ras_dyn_2.png}
+    \caption{Dynamic environment and RAS at time 5.1724s}
+    \label{fig:ras_dyn_2.png}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics
+        [width=0.4\textwidth]
+        {figures/ras_dyn_3.png}
+    \caption{Dynamic environment and RAS (empty) at end game}
+    \label{fig:ras_dyn_3.png}
+\end{figure}
+
+As mentioned before, we simulated three different cases for the Dynamic experiments. 
+
+\subsubsection{Case 1}
+In this first case the initial position of the robot $x_0 = [0, 0, -3]$ is relatively near the target set and inside the $RAS$ at time 0 seconds, so we know from the theory that exists a trajectory which can lead the robot inside the target set in the maximum given time (10 seconds).
+In Fig. (\ref{fig:dynamic_closer_opt}) we can see here the particular trajectory of the robot necessary to reach the moving target set despite an optimal disturbance. As expected, at time $t=10sec$ the robot is in the target set with the desired orientation without collisions with the obstacles.
+
+\subsubsection{Case 2}
+The second case is similar to the previous one, the only difference with the first one is the initial position of the robot ($x_0 = [0, -7, -3]$). Here the robot is relatively distant from the target set, but still in the $RAS$. Even in this case the robot successfully reached the target set with the desired angle $\theta_d$, playing against the optimal disturbance and avoiding any obstacle (Fig. (\ref{fig:dynamic_faraway})). The robot trajectory when the disturbance acts random is shown in Fig. (\ref{fig:dynamic_faraway_ran}).  
+
+\subsubsection{Case 3}
+In this last case we see for completeness what happens if the initial position of the robot is outside the $RAS$. The initial position of the robot is $x_0 = [14, 14, -3]$, so completely outside the bounds of the RAS, obviously we can already say that the robot is not going to reach the target set.
+
+As we can see from Fig. (\ref{fig:dynamic_outside_reach_avoid_set}), robot tries to reach the target but at time $t=10s$ it is still outside.
+        
+
 \begin{figure*}[hp!]
     \centering
     \includegraphics
@@ -66,55 +117,6 @@ Now that the $RAS$ is defined we can see how the robot, starting from an initial
     \caption{Static environment, random disturbance. $x_0 = [-5, -8 -2]$, $\theta_d \in [-0.1, 0.1]$}
     \label{fig:static_random}
 \end{figure*}
-
-%\pagebreak
-\clearpage
-%\newpage
-\subsection{Dynamic Case}
-Now we will see some more complex cases where reach set and avoid set are not fixed, but they move in the environment. Here we simulated a moving platform which represent a recharging station for the robot. So the robot has to access the platform while this platform is moving downward along the Y-axis. The platform is not accessible from everywhere, but only from the right side, while the other sides are surrounded by obstacles. 
-
-As mentioned before, we simulated three different cases for the Dynamic experiments. 
-
-We are going to see the $RAS$ developing over time in a particular direction since the target set (always represented by a green area) is moving. The next figure represents the $RAS$ at time 10 seconds (so still not expanded). As mentioned before this represents a platform that can be entered just by one side and surrounded by obstacles. Since we are always in the configuration space we can not see the small target set which is surrounded by the red obstacles which seem bigger in the C-space.
-%\includegraphics[scale=0.6]{dynamicRAS1.png}
-At the end of the expansion of the $RAS$, so at time 0 seconds, we can see below the limits of the Set.
-%\includegraphics[scale=0.6]{dynamicRAS2.png}
-We will see in each specific case a 2D representation of the $RAS$ to better understand the position of the target set and the different initial positions of the robot.
-\subsubsection{Case 1}
-In this first case the initial position of the robot is relatively near the target set and inside the $RAS$ at time 0 seconds, so we know from the theory that exists a trajectory which can lead the robot inside the target set in the maximum given time (10 seconds).
-%\includegraphics[scale=0.25]{dynamic2Dras1.png}
-%\\
-In the figure we have the 2D $RAS$ (The blue area), The obstacles (Red Area), The target set (The green area) and the initial configuration of the robot (The pink cross). From this plot we can not see the initial angular orientation of the robot since is a 2D representation, but we can better understand it from the trajectory plots below. It is important to say that the target set is not restricted only in small area of the X-axis and Y-axis , but is also limited in terms of the desired target angel $\theta$ (like in the static case). In this case we set as desired $\theta$ a small range around the angle 0 $rad$. The initial position of the robot is $x=0$ and $y=0$.
-%\\
-%\includegraphics[scale=0.25]{dynamicTRAJ1.png}
-%\includegraphics[scale=0.25]{dynamicTRAJ2.png}
-%\\
-We can see here the particular trajectory of the robot due to the movement of the target set. At time $t=10sec$ the robot is in the target set without collisions with the obstacles as expected. We can also see how it enters the target set with the desired angulation around the radiant 0
-
-\subsubsection{Case 2}
-The second case is similar to the previous one. In this case the only difference with the first one is the initial position of the robot. Here the robot is relatively distant from the target set, but still in the $RAS$. 
-%\includegraphics[scale=0.25]{dynamic2Dras2.png}
-%\\
-Since its initial position is still in the limits of the $RAS$ we can compute the following trajectory with robot's initial position $x=0$ and $y=-7$.
-%\\
-%\includegraphics[scale=0.25]{dynamicTRAJ3.png}
-%\includegraphics[scale=0.25]{dynamicTRAJ4.png}
-%\\
-Even in this case the Robot successfully reached the target set with the desired target angle $\theta=0$, playing against the optimal disturbance and avoiding any obstacle.
-
-\subsubsection{Case 3}
-In this last case we see what happens if the initial position of the robot is outside the $RAS$. 
-%\\
-%\includegraphics[scale=0.20]{dynamic2Dras3.png}
-%\\
-The initial position of the robot is $x=14$ and $y=14$, so completely outside the bounds of the Reach-Avoid Set.
-Obviously we can already say that the robot is not going to reach the Target Set.
-%\\
-%\includegraphics[scale=0.25]{dynamicTRAJ5.png}
-%\includegraphics[scale=0.25]{dynamicTRAJ6.png}
-%\\
-At time $t=10 seconds$ the robot is still outside the target set since the expansion of the $RAS$ was not big enough to include the robot at its initial position.
-        
 
 \begin{figure*}[hp!]
     \centering
