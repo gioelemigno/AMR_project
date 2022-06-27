@@ -40,7 +40,7 @@ The procedure to calculate (\ref{eq:kin_model}) is shown in the Appendix.
 \subsection{Hamiltonian}
 The game dynamics $f(x(\cdot), u(\cdot), d(\cdot))$ is given by (\ref{eq:kin_model}), therefore the upper Hamiltonian can be computed as follows:
 \begin{equation*}
-  H^+(x,p,t) = \min_{u \in U}\max_{d \in D} [p_x, p_y, p_{\theta}]^T f(x, u, d)
+  H^+(x,p,t) = \min_{u \in U}\max_{d \in D} [p_x, p_y, p_{\theta}] f(x, u, d)
 \end{equation*}
 Developing and collecting terms w.r.t. inputs \footnote{$c(\cdot)=\cos(\cdot)$, $s(\cdot)=\sin(\cdot)$}:
 \begin{equation*}
@@ -48,7 +48,7 @@ Developing and collecting terms w.r.t. inputs \footnote{$c(\cdot)=\cos(\cdot)$, 
     H^{+}(\cdot) = \min_{u \in U}\max_{d \in D} 
     &
       \begin{pmatrix}
-        \frac{2}{3}c{(\theta + \delta)}p_x +  \frac{2}{3}s{(\theta + \delta }p_y + \frac{1}{3L}p_{\theta}
+        \frac{2}{3}c{(\theta + \delta)}p_x +  \frac{2}{3}s{(\theta + \delta)}p_y + \frac{1}{3L}p_{\theta}
       \end{pmatrix}u_{1} 
     \\ +  
     &
@@ -58,7 +58,7 @@ Developing and collecting terms w.r.t. inputs \footnote{$c(\cdot)=\cos(\cdot)$, 
     \\ +  
     &
       \begin{pmatrix}
-        -\frac{2}{3}s{(\theta)}p_x -\frac{2}{3}c{(\theta)}p_y + \frac{1}{3L}p_{\theta} 
+        \frac{2}{3}s{(\theta)}p_x -\frac{2}{3}c{(\theta)}p_y + \frac{1}{3L}p_{\theta} 
       \end{pmatrix}u_{3} 
     \\ + 
     &
@@ -96,9 +96,9 @@ Where $u^* = [u_1^*, u_2^*, u_3^*]^T$ and $d^*$ represent the optimal moves for 
 	\end{cases}
   \label{opt_d}
 \end{equation}
-Please notice that these optimal inputs cannot be computed at prior since first they require the computation of $V^+(x,t)$ necessary to calculate $p = [p_x, p_y, p_{\theta}]^T$.
+Please notice that these optimal inputs, as well as the Hamiltonian, cannot be computed at prior since first they require the computation of $V^+(x,t)$ necessary to calculate $p = [p_x, p_y, p_{\theta}]^T$.
 
-Finally, as required from the numerical method able to compute $V^+(x,t)$, we compute the partial derivative of (\ref{opt_ham}) w.r.t. to $p$. Please refer to \cite{new_paper} \cite{mitch_phd} for the mathematics reasons behind it.
+Finally, as required from the numerical method able to compute $V^+(x,t)$, we calculate the partial derivative of (\ref{opt_ham}) w.r.t. to $p$. Please refer to \cite{new_paper} \cite{mitch_phd} for the mathematics reasons behind it.
 
 \begin{equation}
   \frac{\partial H^+(x,p,t)}{\partial p} = 
