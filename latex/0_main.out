@@ -1,0 +1,30 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Theoretical Fundamentals}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Reachability Analysis}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Differential Games}{section.2}% 4
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Definition of the differential game}{subsection.2.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Value of the game}{subsection.2.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Differential Game in Reachability Analysis}{subsection.2.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Hamilton-Jacobi Equation}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Viscosity Solution}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.5}{Level Set Method}{section.2}% 10
+\BOOKMARK [1][-]{section.3}{Computation Reach-Avoid set}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Payoff Function}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Definition Reach-Avoid Set}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.3}{Hamilton-Jacobi-Isaacs Equation}{section.3}% 14
+\BOOKMARK [1][-]{section.4}{Case of Study}{}% 15
+\BOOKMARK [2][-]{subsection.4.1}{Definition Game Dynamics}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.2}{Hamiltonian}{section.4}% 17
+\BOOKMARK [1][-]{section.5}{Simulation}{}% 18
+\BOOKMARK [2][-]{subsection.5.1}{Static Case}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.2}{Dynamic Case}{section.5}% 20
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Case 1}{subsection.5.2}% 21
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Case 2}{subsection.5.2}% 22
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Case 3}{subsection.5.2}% 23
+\BOOKMARK [1][-]{section.6}{Conclusion}{}% 24
+\BOOKMARK [1][-]{section*.1}{Appendix}{}% 25
+\BOOKMARK [2][-]{subsection.Appendix.A.1}{Kinematic Model Calculation}{section*.1}% 26
+\BOOKMARK [3][-]{figure.15}{Induced velocity}{subsection.Appendix.A.1}% 27
+\BOOKMARK [3][-]{subsubsection.Appendix.A.1.2}{Kinematic model in robot reference frame}{subsection.Appendix.A.1}% 28
+\BOOKMARK [3][-]{subsubsection.Appendix.A.1.3}{Model in the world coordinate system}{subsection.Appendix.A.1}% 29
+\BOOKMARK [1][-]{section*.2}{References}{}% 30
